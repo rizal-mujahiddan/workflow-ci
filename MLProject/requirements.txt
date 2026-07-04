@@ -1,0 +1,9 @@
+mlflow
+scikit-learn
+polars
+pandas
+numpy
+matplotlib
+seaborn
+dagshub
+joblib

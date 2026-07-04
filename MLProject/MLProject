@@ -1,0 +1,23 @@
+name: Melbourne-Housing-MLProject
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      data_dir:
+        type: str
+        default: dataset_preprocessing
+      n_estimators:
+        type: int
+        default: 200
+      max_depth:
+        type: int
+        default: 15
+      min_samples_split:
+        type: int
+        default: 2
+      min_samples_leaf:
+        type: int
+        default: 1
+    command: "python modelling.py --data-dir {data_dir} --n-estimators {n_estimators} --max-depth {max_depth} --min-samples-split {min_samples_split} --min-samples-leaf {min_samples_leaf}"

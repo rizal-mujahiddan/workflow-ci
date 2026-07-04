@@ -1,0 +1,28 @@
+{
+  "run_id": "d747ffa6263841c1b20200138511477b",
+  "metrics": {
+    "mae": 179395.1738182642,
+    "mse": 95591042458.93364,
+    "rmse": 309178.01095636416,
+    "r2": 0.7684484881705843
+  },
+  "params": {
+    "n_estimators": 200,
+    "max_depth": 15,
+    "min_samples_split": 2,
+    "min_samples_leaf": 1
+  },
+  "features": [
+    "Rooms",
+    "Type",
+    "Method",
+    "Distance",
+    "Postcode",
+    "Bedroom2",
+    "Bathroom",
+    "Car",
+    "Landsize",
+    "Regionname",
+    "Propertycount"
+  ]
+}
