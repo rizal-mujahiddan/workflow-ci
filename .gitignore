@@ -1,1 +1,3 @@
 .vscode/
+MLProject/mlflow.db
+MLProject/mlruns/
