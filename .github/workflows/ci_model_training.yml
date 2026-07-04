@@ -1,0 +1,47 @@
+name: CI - Model Training
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  train-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-activate-base: true
+          python-version: "3.12"
+
+      - name: Install MLflow and dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run MLflow Project
+        run: |
+          mlflow run MLProject --env-manager=local \
+            -P data_dir=dataset_preprocessing \
+            -P n_estimators=200 \
+            -P max_depth=15
+
+      - name: Upload model artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow-model-artifacts
+          path: |
+            MLProject/mlruns/
+            MLProject/artifacts/
+          retention-days: 30
