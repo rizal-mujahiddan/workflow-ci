@@ -34,6 +34,28 @@ from sklearn.metrics import (
 
 warnings.filterwarnings("ignore")
 
+from pathlib import Path
+import mlflow
+
+ROOT = Path(__file__).parent.resolve()
+
+mlflow.set_tracking_uri(f"sqlite:///{ROOT/'mlflow.db'}")
+
+artifact_root = ROOT / "mlruns"
+artifact_root.mkdir(exist_ok=True)
+
+exp = mlflow.get_experiment_by_name("Default")
+
+if exp is None:
+    mlflow.create_experiment(
+        "Default",
+        artifact_location=artifact_root.resolve().as_uri(),
+    )
+
+mlflow.set_experiment("Default")
+
+
+
 
 def load_data(data_dir: str):
     """Load preprocessed train/test CSVs."""
@@ -104,9 +126,8 @@ def train(
 
         # Log model
         mlflow.sklearn.log_model(
-            model,
-            "model",
-            registered_model_name="Melbourne-Housing-RF-CI",
+            sk_model=model,
+            artifact_path="model",
         )
 
         # Extra artifact: feature importance
